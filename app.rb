@@ -28,7 +28,7 @@ require_relative 'routes/main'
 require_relative 'routes/errors'
 
 # Main CTF class
-class CTF < Sinatra::Base
+class Application < Sinatra::Base
 
   # Logging options for application.
   ::Logger.class_eval { alias :write :'<<' }
@@ -82,5 +82,5 @@ end
 
 # Respond to whatever options.
 if opts[:start]
-  CTF.run!
+  Application.run!
 end

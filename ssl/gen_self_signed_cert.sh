@@ -53,7 +53,7 @@ function parseOpts() {
   while getopts :hgv opt; do
     case $opt in
       h) # Help
-Help_Menu
+        Help_Menu
         # I need somebody
         # Help, not just anybody
         # Help, you know I need someone
@@ -61,24 +61,24 @@ Help_Menu
         exit 0
         ;;
       v) # Version check
-Version_Check
-exit 0
-;;
+        Version_Check
+        exit 0
+        ;;
       g) # Basically, do what this is meant to do.
-Main
-;;
+        Main
+        ;;
       \?) # Invalid arg
-echo "Invalid option: -$OPTARG"
-Help_Menu
-exit 1
-;;
+        echo "Invalid option: -$OPTARG"
+        Help_Menu
+        exit 1
+        ;;
       :) # Missing arg
-echo "An argument must be specified for -$OPTARG"
-Help_Menu
-exit 1
-;;
-esac
-done
+        echo "An argument must be specified for -$OPTARG"
+        Help_Menu
+        exit 1
+        ;;
+        esac
+        done
 }
 
 # Not a function, but essentially triggers the rest of the application.
