@@ -24,7 +24,6 @@ require 'colorize'
 #require 'pry'
 
 # Require Custom Files
-require_relative 'helpers'
 require_relative 'routes/main'
 require_relative 'routes/errors'
 
@@ -55,7 +54,6 @@ class CTF < Sinatra::Base
     enable :sessions
     set :root, File.dirname(__FILE__)
     use ::Rack::CommonLogger, access_logger
-    helpers Sinatra::SampleApp::Helpers
     register Sinatra::App::Routing::Main
     register Sinatra::App::Routing::Errors
   end

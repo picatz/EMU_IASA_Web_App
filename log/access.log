@@ -1,0 +1,4 @@
+127.0.0.1 - - [03/Oct/2016:21:54:33 -0400] "GET / HTTP/1.1" 200 6103 0.0109
+127.0.0.1 - - [03/Oct/2016:21:54:33 -0400] "GET /vendor/bootstrap/img/background_logo.png HTTP/1.1" 200 80127 0.0007
+127.0.0.1 - - [03/Oct/2016:21:54:33 -0400] "GET /vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 - 0.0004
+127.0.0.1 - - [03/Oct/2016:21:54:33 -0400] "GET /vendor/bootstrap/img/background.png HTTP/1.1" 200 712850 0.0018
