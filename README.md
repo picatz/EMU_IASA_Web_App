@@ -2,6 +2,10 @@
 
 This web application is meant to provide a maintainable, configurable web application for Eastern Michigan University's Information Assurance Student Association.
 
+## Screen Shot
+
+![alt tag](http://i.imgur.com/vVZXcmT.jpg)
+
 #### Todo
 
 * Spell checking.
