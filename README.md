@@ -2,6 +2,12 @@
 
 This web application is meant to provide a maintainable, configurable web application for Eastern Michigan University's Information Assurance Student Association.
 
+## Required Gems
+
+Should probably write that install script. Will do that. Until then, just install these gems:
+
+`$ (sudo) gem install sinatra thin trollop colorize`
+
 ## Screen Shot
 
 ![alt tag](http://i.imgur.com/vVZXcmT.jpg)
