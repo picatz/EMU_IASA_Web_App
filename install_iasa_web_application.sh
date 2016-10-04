@@ -1,9 +1,27 @@
 #!/bin/bash
 # Kent 'picat' Gruber
 
+# Set variables
+SUDO_CHECK=false
+PACKAGE_MANAGER=false
+LOG_DIR="/log"
+LOG_FILE="installer_log.log"
+LOG="$LOG_DIR/$LOG_FILE"
+
 function Help_Menu {
-  echo "GENERATE SELF-SIGNED SSL CERT because LOL
-  -g     Generate a self-signed ssl certificate ( don't worry about it ).
+  echo "EMU IASA WEB APP INSTALLER
+  -d     Use default options ( -c, -a, -s, -r, -g )
+  -a     Download all required dependencies.
+  -c     Check system dependencies.
+  -s     Use sudo for this installer.
+  -g     Download required gems.
+  -r     Download RVM.
+  -s     Download sinatra gem.
+  -l     Download lolize gem.
+  -t     Download thin gem.
+  -o     Download openssl.
+  -R     Download relevant rack gems.
+  -p     Specify a package manager to use.
   -v     Display version.
   -h     Display this menu."
 }
@@ -15,16 +33,26 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-
 # Decided to put everything into fun functions because functions are fun.
 function Version_Check {
   echo "GENERATE SELF-SIGNED SSL CERT THINGS v 0.000000001"
 }
 
 # The main openssl thing basically.
-function Trust_Me {
-  echo "[*] Generating openssl things because why not."
-  openssl req -new -x509 -sha256 -newkey rsa:2048 -nodes -keyout legit.key.pem -days 365 -out legit.cert.pem
+function Default_Installer {
+  echo "[*] Default Download Option"
+  # All the default install instructions go here...
+}
+
+# The function to download all dependencies.
+function Dowload_All_Dependencies {
+  echo "[*] Downloading all dependencies..."
+
+}
+
+# Download required gems.
+function Dowload_All_Dependencies {
+  echo "[*] Downloading the required gems..."
 }
 
 # Check that we can actually do the things because we have the things to do the things with to do our things, k?
