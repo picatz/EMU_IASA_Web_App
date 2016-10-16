@@ -1,5 +1,17 @@
 #!/usr/bin/env ruby
 #
+#    ▄▄▄▄▄▄▄▄▄▄▄▄▄
+#  ▄▀             ▀▄
+#  █   ▄▀▀▀█▀▀▄    █                      |
+#  █   █     ▄▄█   █   █▀▀▀▀ █▄ ▄█ █   █  |  ▀▀█▀▀ █▀▀▀█ █▀▀▀▀ █▀▀▀█
+#  █   ▀▄   ▀▄ ▀   █   █     █ █ █ █   █  |    █   █   █ █     █   █
+#  █  ▄▄█     ▀▄▄  █   █▀▀▀  █   █ █   █  |    █   █▀▀▀█ ▀▀▀▀█ █▀▀▀█
+#  ▀▄▀           ▀▄▀   █     █   █ █   █  |    █   █   █     █ █   █
+#   ▀▄           ▄▀    ▀▀▀▀▀ ▀   ▀ ▀▀▀▀▀  |  ▀▀▀▀▀ ▀   ▀ ▀▀▀▀▀ ▀   ▀
+#     ▀▄       ▄▀                         |
+#       ▀▄   ▄▀
+#         ▀▄▀
+#
 # This web application is built for Eastern Michigan
 # University's Information Assurance Student Association
 # to serve as a platform to foster an awesome cyber
@@ -12,12 +24,12 @@
 
 # Require Gems
 require 'sinatra/base'
-#require 'rack/protection'
-#require 'rack/ssl'
-#require 'rack/reverse_proxy'
-#require 'rack-ssl-enforcer'
+require 'rack/protection'
+require 'rack/ssl'
+require 'rack/reverse_proxy'
+require 'rack-ssl-enforcer'
 require 'thin'
-#require 'yaml'
+require 'yaml'
 require 'logger'
 require 'trollop'
 require 'colorize'
@@ -28,7 +40,7 @@ require_relative 'routes/main'
 require_relative 'routes/errors'
 
 # Main CTF class
-class Application < Sinatra::Base
+class CTF < Sinatra::Base
 
   # Logging options for application.
   ::Logger.class_eval { alias :write :'<<' }
@@ -47,8 +59,8 @@ class Application < Sinatra::Base
   configure do
     set :title, "EMU IASA Web App"
     set :environment, :production
-    set :bind, '127.0.0.1'
-    set :port, 4567
+    set :bind, '192.207.255.38'
+    set :port, 443
     set :server, :thin
     server.threaded = settings.threaded if server.respond_to? :threaded=
     enable :sessions
@@ -56,16 +68,23 @@ class Application < Sinatra::Base
     use ::Rack::CommonLogger, access_logger
     register Sinatra::App::Routing::Main
     register Sinatra::App::Routing::Errors
+    use Rack::ReverseProxy do
+      reverse_proxy '/test', 'https://emuiasa.io/'
+      reverse_proxy /^\/documentation\/?(.*)$/, 'https://emuiasa.io/$1'
+    end
+    use Rack::SSL
+    use Rack::SslEnforcer
+    use Rack::Deflater
   end
 
   def self.run!
     super do |server|
-      #server.ssl = true
-      #server.ssl_options = {
-      #  :cert_chain_file  => File.dirname(__FILE__) + "/ssl/legit.cert.pem",
-      #  :private_key_file => File.dirname(__FILE__) + "/ssl/legit.key.pem",
-      #  :verify_peer      => false
-      #}
+      server.ssl = true
+      server.ssl_options = {
+        :cert_chain_file  => File.dirname(__FILE__) + "/ssl/legit.cert.pem",
+        :private_key_file => File.dirname(__FILE__) + "/ssl/legit.key.pem",
+        :verify_peer      => false
+      }
     end
   end
 end
@@ -82,5 +101,5 @@ end
 
 # Respond to whatever options.
 if opts[:start]
-  Application.run!
+  CTF.run!
 end
